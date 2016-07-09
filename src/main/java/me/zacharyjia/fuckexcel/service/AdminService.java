@@ -30,6 +30,13 @@ public class AdminService {
     }
 
     public Admin findAdminById(String id) {
-        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), Admin.class, ADMIN_COLLECTION);
+        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)),
+                Admin.class, ADMIN_COLLECTION);
     }
+
+    public Admin findAdminByUsername(String username) {
+        return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)),
+                Admin.class, ADMIN_COLLECTION);
+    }
+
 }

@@ -23,10 +23,17 @@ public class SuperAdminService {
     }
 
     public void deleteById(String id) {
-        mongoTemplate.findAndRemove(new Query(Criteria.where("id").is(id)), SuperAdmin.class, SUPER_ADMIN_COLLECTION);
+        mongoTemplate.findAndRemove(new Query(Criteria.where("id").is(id)),
+                SuperAdmin.class, SUPER_ADMIN_COLLECTION);
     }
 
-    public SuperAdmin findAdminById(String id) {
-        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), SuperAdmin.class, SUPER_ADMIN_COLLECTION);
+    public SuperAdmin findSuperAdminById(String id) {
+        return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)),
+                SuperAdmin.class, SUPER_ADMIN_COLLECTION);
+    }
+
+    public SuperAdmin findSuperAdminByUsername(String username) {
+        return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)),
+                SuperAdmin.class, SUPER_ADMIN_COLLECTION);
     }
 }

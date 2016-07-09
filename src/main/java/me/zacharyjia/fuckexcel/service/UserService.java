@@ -34,6 +34,11 @@ public class UserService {
         return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), User.class, USER_COLLECTION);
     }
 
+    public User findUserByUsername(String username) {
+        return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)),
+                User.class, USER_COLLECTION);
+    }
+
     //TODO: 根据tag查用户
     /*
     public List<User> findUsersByTag(String tag) {
