@@ -11,11 +11,14 @@
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="me.zacharyjia.fuckexcel.controller" />
+    <context:component-scan base-package="me.zacharyjia.fuckexcel.service" />
     <mvc:annotation-driven />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
+
+    <import resource="mongo-config.xml" />
 
 </beans>
