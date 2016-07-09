@@ -1,9 +1,9 @@
 package me.zacharyjia.fuckexcel.model;
 
+import me.zacharyjia.fuckexcel.model.interfaces.FormField;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * Created by zachary on 16/7/9.
@@ -17,6 +17,15 @@ public class User implements Serializable {
     private String username;
     private String password;
     private String[] tags;
+    private FormField[] fileds;
+
+    public FormField[] getFileds() {
+        return fileds;
+    }
+
+    public void setFileds(FormField[] fileds) {
+        this.fileds = fileds;
+    }
 
     public String[] getTags() {
         return tags;
