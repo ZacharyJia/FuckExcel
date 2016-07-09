@@ -9,8 +9,11 @@
 <html>
 <head>
     <title>Hello</title>
+    <%@include file="common/include.jsp"%>
 </head>
 <body>
 <h1>Hello, ${name}</h1>
+
+<a href="#" class="btn btn-danger">hehehe</a>
 </body>
 </html>
