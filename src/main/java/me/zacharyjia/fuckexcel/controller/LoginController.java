@@ -37,11 +37,11 @@ public class LoginController {
         //判断用户是否已经登录
         if ((user = (User) session.getAttribute("user")) != null) {
             if (user instanceof SuperAdmin) {
-                return "redirect:/sa/home.do";
+                return "redirect:/sa/home";
             } else if (user instanceof Admin) {
-                return "redirect:/admin/home.do";
-            } else if (user instanceof User) {
-                return "redirect:/user/home.do";
+                return "redirect:/admin/home";
+            } else {
+                return "redirect:/user/home";
             }
         }
 
@@ -67,23 +67,29 @@ public class LoginController {
             }
             else {
                 session.setAttribute("msg", "出现未知错误,请通过正常方式登录!");
-                return "redirect:/login.do";
+                return "redirect:/login";
             }
             if (user != null && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
                 session.setAttribute("user_type", "user");
-                return "redirect:/user/home.do";
+                return "redirect:/login";
             }
             else {
                 session.setAttribute("msg", "用户名或密码错误!");
-                return "redirect:/login.do";
+                return "redirect:/login";
             }
         }
         else {
             session.setAttribute("msg_type", "error");
             session.setAttribute("msg", "用户名或密码不能为空!");
-            return "redirect:/login.do";
+            return "redirect:/login";
         }
+    }
+
+    @RequestMapping("/logout")
+    public String logout() {
+        session.removeAttribute("user");
+        return "redirect:/login";
     }
 
 }

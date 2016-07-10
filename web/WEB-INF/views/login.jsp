@@ -1,9 +1,7 @@
 <%--
-  Created by IntelliJ IDEA.
   User: zachary
   Date: 16/7/9
   Time: 下午10:59
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -25,7 +23,7 @@
         </c:if>
 
         <div class="col-sm-6 col-sm-offset-3">
-            <form action="doLogin.do" method="post">
+            <form action="doLogin" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
