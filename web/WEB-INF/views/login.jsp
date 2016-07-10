@@ -14,14 +14,6 @@
         <div class="col-sm-6 col-sm-offset-3">
             <h1 class="text-center">信息采集系统登录</h1>
         </div>
-        <c:if test="${msg!=null}">
-            <div class="text-center col-sm-4 col-sm-offset-4 alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>错误:</strong>
-                    ${msg}
-            </div>
-        </c:if>
-
         <div class="col-sm-6 col-sm-offset-3">
             <form action="doLogin" method="post">
                 <div class="form-group">
@@ -47,5 +39,7 @@
         </div>
 
     </div>
+
+<%@include file="common/footer.jsp"%>
 </body>
 </html>

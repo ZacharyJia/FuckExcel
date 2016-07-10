@@ -1,5 +1,6 @@
 package me.zacharyjia.fuckexcel.controller;
 
+import me.zacharyjia.fuckexcel.common.Msg;
 import me.zacharyjia.fuckexcel.model.Admin;
 import me.zacharyjia.fuckexcel.model.SuperAdmin;
 import me.zacharyjia.fuckexcel.model.User;
@@ -45,9 +46,8 @@ public class LoginController {
             }
         }
 
-        String msg = (String) session.getAttribute("msg");
+        map.addAttribute("msg", session.getAttribute("msg"));
         session.removeAttribute("msg");
-        map.addAttribute("msg", msg);
         return "login";
     }
 
@@ -66,7 +66,7 @@ public class LoginController {
                 user = superAdminService.findSuperAdminByUsername(username);
             }
             else {
-                session.setAttribute("msg", "出现未知错误,请通过正常方式登录!");
+                session.setAttribute("msg", new Msg("error", "出现未知错误,请通过正常方式登录!"));
                 return "redirect:/login";
             }
             if (user != null && password.equals(user.getPassword())) {
@@ -75,13 +75,12 @@ public class LoginController {
                 return "redirect:/login";
             }
             else {
-                session.setAttribute("msg", "用户名或密码错误!");
+                session.setAttribute("msg", new Msg("error", "用户名或密码错误!"));
                 return "redirect:/login";
             }
         }
         else {
-            session.setAttribute("msg_type", "error");
-            session.setAttribute("msg", "用户名或密码不能为空!");
+            session.setAttribute("msg", new Msg("error", "用户名或密码不能为空!"));
             return "redirect:/login";
         }
     }

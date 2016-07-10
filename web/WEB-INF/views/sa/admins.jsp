@@ -40,6 +40,68 @@
         </div>
     </div>
 </nav>
+<div class="container">
+    <div class="col-sm-2">
+        <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#addAdminModal">增加管理员</button>
+    </div>
+    <br /><br /><br />
+    <!-- 增加管理员的模态框 -->
+    <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addAdminModalLabel">增加管理员</h4>
+                </div>
+                <form action="/sa/admins/add" method="post">
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">密码(英文和特殊符号)</label>
+                            <input type="text" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">标签(多个标签以英文逗号隔开)</label>
+                            <input type="text" class="form-control" id="tags" name="tags">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">增加</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-sm-12">
+        <table class="table table-hover">
+            <thead>
+            <th>用户名</th>
+            <th>标签</th>
+            <th>操作</th>
+            </thead>
+            <tbody>
+            <c:forEach items="${admins}" var="admin">
+                <tr>
+                    <td>${admin.username}</td>
+                    <td>
+                        <c:forEach items="${admin.tags}" var="tag"> <span class="label label-success">${tag}</span> </c:forEach>
+                    </td>
+                    <td>
+                        <a href="/sa/admins/edit?id=${admin.id}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="/sa/admins/delete?id=${admin.id}" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%@include file="../common/footer.jsp"%>
 </body>
 </html>

@@ -40,5 +40,7 @@
         </div>
     </div>
 </nav>
+
+<%@include file="../common/footer.jsp"%>
 </body>
 </html>
