@@ -1,9 +1,12 @@
 package me.zacharyjia.fuckexcel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import me.zacharyjia.fuckexcel.model.interfaces.FormField;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by zachary on 16/7/9.
@@ -16,25 +19,17 @@ public class User implements Serializable {
     private String id;
     private String username;
     private String password;
-    private String[] tags;
-    private FormField[] fileds;
+    private Set<String> tags;
 
-    public FormField[] getFileds() {
-        return fileds;
-    }
-
-    public void setFileds(FormField[] fileds) {
-        this.fileds = fileds;
-    }
-
-    public String[] getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(String[] tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

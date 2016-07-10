@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,6 +26,19 @@ public class AdminService {
         mongoTemplate.save(admin, ADMIN_COLLECTION);
     }
 
+    public boolean createAdmin(Admin admin) {
+        if (admin == null) {
+            return false;
+        }
+        long count = mongoTemplate.count(new Query(Criteria.where("username").is(admin.getUsername())),
+                Admin.class, ADMIN_COLLECTION);
+        if (count > 0) {
+            return false;
+        }
+        mongoTemplate.save(admin, ADMIN_COLLECTION);
+        return true;
+    }
+
     public void deleteById(String id) {
         mongoTemplate.findAndRemove(new Query(Criteria.where("id").is(id)), Admin.class, ADMIN_COLLECTION);
     }
@@ -37,6 +51,10 @@ public class AdminService {
     public Admin findAdminByUsername(String username) {
         return mongoTemplate.findOne(new Query(Criteria.where("username").is(username)),
                 Admin.class, ADMIN_COLLECTION);
+    }
+
+    public List<Admin> findAll() {
+        return mongoTemplate.findAll(Admin.class, ADMIN_COLLECTION);
     }
 
 }

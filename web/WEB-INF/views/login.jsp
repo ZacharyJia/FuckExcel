@@ -15,7 +15,7 @@
             <h1 class="text-center">信息采集系统登录</h1>
         </div>
         <div class="col-sm-6 col-sm-offset-3">
-            <form action="doLogin" method="post">
+            <form action="/doLogin" method="post">
                 <div class="form-group">
                     <label for="username">用户名</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="用户名">

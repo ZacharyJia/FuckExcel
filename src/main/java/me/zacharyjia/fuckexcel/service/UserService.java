@@ -39,10 +39,9 @@ public class UserService {
                 User.class, USER_COLLECTION);
     }
 
-    //TODO: 根据tag查用户
-    /*
     public List<User> findUsersByTag(String tag) {
-        return mongoTemplate.find(new Query(Criteria.where("tags")))
+        return mongoTemplate.find(new Query(Criteria.where("tags").in(tag)),
+                User.class, USER_COLLECTION);
     }
-    */
+
 }

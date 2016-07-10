@@ -32,7 +32,7 @@ public class LoginController {
     @Autowired
     private SuperAdminService superAdminService;
 
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public String login(ModelMap map) {
         User user = null;
         //判断用户是否已经登录
@@ -51,7 +51,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping("doLogin")
+    @RequestMapping("/doLogin")
     public String doLogin(HttpServletRequest request) {
         String username, password, role;
         User user = null;
@@ -61,7 +61,7 @@ public class LoginController {
             if ("user".equals(role)) {
                 user = userService.findUserByUsername(username);
             } else if ("admin".equals(role)) {
-                user = adminService.findAdminById(username);
+                user = adminService.findAdminByUsername(username);
             } else if ("super_admin".equals(role)) {
                 user = superAdminService.findSuperAdminByUsername(username);
             }

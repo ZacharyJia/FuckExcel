@@ -1,5 +1,6 @@
 package me.zacharyjia.fuckexcel.controller.superadmin;
 
+import me.zacharyjia.fuckexcel.common.Msg;
 import me.zacharyjia.fuckexcel.model.SuperAdmin;
 import me.zacharyjia.fuckexcel.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,17 @@ class BaseSaController {
     @Autowired
     private HttpSession session;
 
-    boolean authCheck() {
+    void setMsg(Msg msg) {
+        session.setAttribute("msg", msg);
+    }
+
+    String authCheck() {
         User user = (User) session.getAttribute("user");
         if (user == null || !(user instanceof SuperAdmin)) {
-            return false;
+            setMsg(new Msg("error", "权限不足"));
+            return "redirect:/login";
         }
-        return true;
+        return null;
     }
 
     SuperAdmin getLoginSuperAdmin() {

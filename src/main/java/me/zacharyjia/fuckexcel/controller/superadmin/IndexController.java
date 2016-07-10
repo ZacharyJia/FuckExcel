@@ -1,5 +1,6 @@
 package me.zacharyjia.fuckexcel.controller.superadmin;
 
+import me.zacharyjia.fuckexcel.common.Msg;
 import me.zacharyjia.fuckexcel.model.SuperAdmin;
 import me.zacharyjia.fuckexcel.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,12 @@ public class IndexController extends BaseSaController {
     @Autowired
     private HttpSession session;
 
+    private String result;
+
     @RequestMapping("/home")
     public String home(ModelMap map) {
-        if (!authCheck()) {
-            session.setAttribute("msg", "权限不足");
-            return "redirect:/login";
+        if ((result = authCheck()) != null) {
+            return result;
         }
 
         map.addAttribute("superAdmin", getLoginSuperAdmin());
