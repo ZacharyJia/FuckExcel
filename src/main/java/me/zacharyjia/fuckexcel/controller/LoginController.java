@@ -71,7 +71,6 @@ public class LoginController {
             }
             if (user != null && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
-                session.setAttribute("user_type", "user");
                 return "redirect:/login";
             }
             else {
