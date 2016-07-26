@@ -26,6 +26,19 @@ public class UserService {
         mongoTemplate.save(user, USER_COLLECTION);
     }
 
+    public boolean createUser(User user) {
+        if (user == null) {
+            return false;
+        }
+        long count = mongoTemplate.count(new Query(Criteria.where("username").is(user.getUsername())),
+                User.class, USER_COLLECTION);
+        if (count > 0) {
+            return false;
+        }
+        mongoTemplate.save(user, USER_COLLECTION);
+        return true;
+    }
+
     public void deleteById(String id) {
         mongoTemplate.findAndRemove(new Query(Criteria.where("id").is(id)), User.class, USER_COLLECTION);
     }
@@ -41,6 +54,15 @@ public class UserService {
 
     public List<User> findUsersByTag(String tag) {
         return mongoTemplate.find(new Query(Criteria.where("tags").in(tag)),
+                User.class, USER_COLLECTION);
+    }
+
+    public long getUserCount() {
+        return mongoTemplate.count(null, User.class, USER_COLLECTION);
+    }
+
+    public List<User> findUsers(int limit, int offset) {
+        return mongoTemplate.find(new Query().skip(offset).limit(limit),
                 User.class, USER_COLLECTION);
     }
 

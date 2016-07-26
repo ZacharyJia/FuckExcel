@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by zachary on 16/7/10.
  */
-@Controller
+@Controller("saIndex")
 @RequestMapping("/sa")
 public class IndexController extends BaseSaController {
 
