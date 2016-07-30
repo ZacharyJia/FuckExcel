@@ -80,10 +80,16 @@ public class UsersController extends BaseAdminController {
         Set<String> set = InputUtil.string2tag(tags);
         if (set == null)
             set = new HashSet<String>();
-        if (!set.contains(username)) {
-            set.add(username);
-        }
         set.remove("");
+        Admin admin = getLoginAdmin();
+        Set<String> adminTag = admin.getTags();
+        boolean tagOk = true;
+        set.remove(username);
+        if(!admin.getTags().containsAll(set)) {
+            set.retainAll(adminTag);
+            tagOk = false;
+        }
+        set.add(username);
 
         User user = new User();
         user.setId(UUID.randomUUID().toString());
@@ -91,7 +97,11 @@ public class UsersController extends BaseAdminController {
         user.setPassword(password);
         user.setTags(set);
         if (userService.createUser(user)) {
-            setMsg(new Msg("success", "添加成功"));
+            if (tagOk) {
+                setMsg(new Msg("success", "添加成功"));
+            } else {
+                setMsg(new Msg("error", "部分tag无权设置,已删除 "));
+            }
         }
         else {
             setMsg(new Msg("error", "添加失败,用户名可能已经存在"));
@@ -143,9 +153,27 @@ public class UsersController extends BaseAdminController {
             if (user != null) {
                 if (password != null && !"".equals(password))
                     user.setPassword(password);
-                user.setTags(InputUtil.string2tag(tags));
+
+                Set<String> set = InputUtil.string2tag(tags);
+                if (set == null)
+                    set = new HashSet<String>();
+                set.remove("");
+                Admin admin = getLoginAdmin();
+                Set<String> adminTag = admin.getTags();
+                boolean tagOk = true;
+                set.remove(user.getUsername());
+                if(!admin.getTags().containsAll(set)) {
+                    set.retainAll(adminTag);
+                    tagOk = false;
+                }
+                set.add(user.getUsername());
+                user.setTags(set);
                 userService.saveUser(user);
-                setMsg(new Msg("success", "修改成功"));
+                if (tagOk) {
+                    setMsg(new Msg("success", "修改成功"));
+                } else {
+                    setMsg(new Msg("error", "部分tag无权设置,已删除"));
+                }
             } else {
                 setMsg(new Msg("error", "未知错误"));
             }
