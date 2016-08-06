@@ -43,5 +43,6 @@
     </bean>
 
     <import resource="mongo-config.xml" />
+    <bean class="me.zacharyjia.fuckexcel.config.SecurityConfig"/>
 
 </beans>
